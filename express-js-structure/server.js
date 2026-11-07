@@ -1,15 +1,18 @@
 import express from "express";
+import cors from "cors";
 import taskRoutes from "./routes/taskRoutes.js";
 
 const app = express();
 
-
 const PORT = Number(process.env.PORT) || 6000;
 
-// PARSE HSON FILES
+// ALLOW REACT FRONTEND (Vite default port 5173)
+app.use(cors({ origin: "http://localhost:5173" }));
+
+// PARSE JSON BODY
 app.use(express.json());
 
-// LOG THE INCOMING RE
+// LOG THE INCOMING REQUEST
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path}`);
   next();
